@@ -106,7 +106,7 @@ int main() {
         MarkerDetector MDetector;
         CameraParameters TheCameraParameters;
 
-        TheCameraParameters.readFromXMLFile("TODO");
+        TheCameraParameters.readFromXMLFile("/home/zjf/camera_param.yml");//TODO:目前文件路径需要为绝对路径
 
         iDictionaryIndex = (uint64_t) aruco::Dictionary::getTypeFromString(dictionaryString);
         MDetector.setDictionary(dictionaryString, float(iCorrectionRate) / 10.);// sets the dictionary to be employed (ARUCO,APRILTAGS,ARTOOLKIT,etc)
@@ -115,7 +115,7 @@ int main() {
 
         setParamsFromGlobalVariables(MDetector);
 
-        cv::Mat TheInputImage = imread("~/qr.png", cv::IMREAD_UNCHANGED), TheInputImageCopy;
+        cv::Mat TheInputImage = imread("/home/zjf/qr.png", cv::IMREAD_UNCHANGED), TheInputImageCopy;//TODO:目前文件路径需要为绝对路径
         TheInputImage = resizeImage(TheInputImage, resizeFactor);
 
         // go!
