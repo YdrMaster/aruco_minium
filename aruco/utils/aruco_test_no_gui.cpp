@@ -16,19 +16,14 @@ Copyright 2020 Rafael Muñoz Salinas. All rights reserved.
 
 #include "aruco.h"
 #include "cvdrawingutils.h"
-#include <fstream>
 #include <iostream>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-#include <sstream>
-#include <stdexcept>
-#include <string>
 
 #if CV_MAJOR_VERSION >= 4
 #define CV_CAP_PROP_FRAME_COUNT cv::CAP_PROP_FRAME_COUNT
 #define CV_CAP_PROP_POS_FRAMES cv::CAP_PROP_POS_FRAMES
 #endif
-using namespace std;
 using namespace cv;
 using namespace aruco;
 
@@ -56,9 +51,7 @@ struct TimerAvrg {
         for (auto t : times) sum += t;
         return sum / double(times.size());
     }
-};
-
-TimerAvrg Fps;
+} Fps;
 
 cv::Mat resize(const cv::Mat &in, cv::Size s) {
     if (s.width == -1 || s.height == -1) return in;
@@ -82,14 +75,11 @@ cv::Mat resizeImage(cv::Mat &in, float resizeFactor) {
     float nr = float(in.rows) * resizeFactor;
     cv::Mat imres;
     cv::resize(in, imres, cv::Size(nc, nr));
-    cout << "Imagesize=" << imres.size() << endl;
+    std::cout << "Imagesize=" << imres.size() << std::endl;
     return imres;
 }
 
 int main() {
-    MarkerDetector MDetector;
-    vector<Marker> TheMarkers;
-    CameraParameters TheCameraParameters;
 
     // float resizeFactor = stof(cml("-rf", "1"));
     float resizeFactor = 1;
@@ -97,24 +87,28 @@ int main() {
     float TheMarkerSize = -1;
 
     try {
+        MarkerDetector MDetector;
+        CameraParameters TheCameraParameters;
+
         Mat TheInputImage = imread("~/qr.png", IMREAD_UNCHANGED), TheInputImageCopy;
         TheInputImage = resizeImage(TheInputImage, resizeFactor);
-        // copy image
+
+        // go!
         Fps.start();
-        TheMarkers = MDetector.detect(TheInputImage, TheCameraParameters, TheMarkerSize);
+        std::vector<Marker> TheMarkers = MDetector.detect(TheInputImage, TheCameraParameters, TheMarkerSize);
         Fps.stop();
+
         // chekc the speed by calculating the mean speed of all iterations
-        cout << "\rTime detection=" << Fps.getAvrg() * 1000 << " milliseconds nmarkers=" << TheMarkers.size() << " images resolution=" << TheInputImage.size() << std::endl;
+        std::cout << "\rTime detection=" << Fps.getAvrg() * 1000 << " milliseconds nmarkers=" << TheMarkers.size() << " images resolution=" << TheInputImage.size() << std::endl;
 
         for (unsigned int i = 0; i < TheMarkers.size(); i++) {
             // cout << TheMarkers[i] << endl;
             double position[3];
             double orientation[4];
             TheMarkers[i].OgreGetPoseParameters(position, orientation);
-
-            cout << "id = " << TheMarkers[i].id << ": ";
-            cout << "pos = (" << position[0] << ", " << position[1] << ", " << position[2] << "); ";
-            cout << "orient = (" << orientation[0] << ", " << orientation[1] << ", " << orientation[2] << ", " << orientation[3] << "); " << endl;
+            std::cout << "id = " << TheMarkers[i].id << ": " << std::endl
+                      << "pos = (" << position[0] << ", " << position[1] << ", " << position[2] << "); " << std::endl
+                      << "orient = (" << orientation[0] << ", " << orientation[1] << ", " << orientation[2] << ", " << orientation[3] << "); " << std::endl;
             TheMarkers[i].draw(TheInputImageCopy, Scalar(0, 0, 255), 2, true);
         }
 
@@ -125,6 +119,6 @@ int main() {
                 CvDrawingUtils::draw3dAxis(TheInputImageCopy, TheMarkers[i], TheCameraParameters);
             }
     } catch (std::exception &ex) {
-        cout << "Exception :" << ex.what() << endl;
+        std::cout << "Exception :" << ex.what() << std::endl;
     }
 }
