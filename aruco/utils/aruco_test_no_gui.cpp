@@ -14,18 +14,20 @@ Copyright 2020 Rafael Muñoz Salinas. All rights reserved.
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+#include <iostream>
+#include <string>
+
 #include "aruco.h"
 #include "cvdrawingutils.h"
-#include <iostream>
+
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+using namespace aruco;
 
 #if CV_MAJOR_VERSION >= 4
 #define CV_CAP_PROP_FRAME_COUNT cv::CAP_PROP_FRAME_COUNT
 #define CV_CAP_PROP_POS_FRAMES cv::CAP_PROP_POS_FRAMES
 #endif
-using namespace cv;
-using namespace aruco;
 
 struct TimerAvrg {
     std::vector<double> times;
@@ -79,18 +81,41 @@ cv::Mat resizeImage(cv::Mat &in, float resizeFactor) {
     return imres;
 }
 
-int main() {
+int iDetectMode = 0, iMinMarkerSize = 0, iCorrectionRate = 0, iEnclosed = 0, iThreshold, iCornerMode, iDictionaryIndex, iTrack = 0;
 
+void setParamsFromGlobalVariables(aruco::MarkerDetector &md) {
+    md.setDetectionMode((DetectionMode) iDetectMode, float(iMinMarkerSize) / 1000.);
+    md.getParameters().setCornerRefinementMethod((aruco::CornerRefinementMethod) iCornerMode);
+
+    md.getParameters().detectEnclosedMarkers(iEnclosed);
+    md.getParameters().ThresHold = iThreshold;
+    md.getParameters().trackingMinDetections = (iTrack ? 3 : 0);
+    if (aruco::Dictionary::getTypeFromString(md.getParameters().dictionary) != Dictionary::CUSTOM)
+        md.setDictionary((aruco::Dictionary::DICT_TYPES) iDictionaryIndex, float(iCorrectionRate) / 10.);// sets the dictionary to be employed (ARUCO,APRILTAGS,ARTOOLKIT,etc)
+}
+
+int main() {
     // float resizeFactor = stof(cml("-rf", "1"));
     float resizeFactor = 1;
     // float TheMarkerSize = std::stof(cml("-s", "-1"));
     float TheMarkerSize = -1;
+    // dictionaryString = cml("-d", "ALL_DICTS");
+    std::string dictionaryString = "ALL_DICTS";
 
     try {
         MarkerDetector MDetector;
         CameraParameters TheCameraParameters;
 
-        Mat TheInputImage = imread("~/qr.png", IMREAD_UNCHANGED), TheInputImageCopy;
+        TheCameraParameters.readFromXMLFile("TODO");
+
+        iDictionaryIndex = (uint64_t) aruco::Dictionary::getTypeFromString(dictionaryString);
+        MDetector.setDictionary(dictionaryString, float(iCorrectionRate) / 10.);// sets the dictionary to be employed (ARUCO,APRILTAGS,ARTOOLKIT,etc)
+        iThreshold = MDetector.getParameters().ThresHold;
+        iCornerMode = MDetector.getParameters().cornerRefinementM;
+
+        setParamsFromGlobalVariables(MDetector);
+
+        cv::Mat TheInputImage = imread("~/qr.png", cv::IMREAD_UNCHANGED), TheInputImageCopy;
         TheInputImage = resizeImage(TheInputImage, resizeFactor);
 
         // go!
@@ -109,7 +134,7 @@ int main() {
             std::cout << "id = " << TheMarkers[i].id << ": " << std::endl
                       << "pos = (" << position[0] << ", " << position[1] << ", " << position[2] << "); " << std::endl
                       << "orient = (" << orientation[0] << ", " << orientation[1] << ", " << orientation[2] << ", " << orientation[3] << "); " << std::endl;
-            TheMarkers[i].draw(TheInputImageCopy, Scalar(0, 0, 255), 2, true);
+            TheMarkers[i].draw(TheInputImageCopy, cv::Scalar(0, 0, 255), 2, true);
         }
 
         // draw a 3d cube in each marker if there is 3d info
