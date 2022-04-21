@@ -14,17 +14,17 @@ Copyright 2020 Rafael Muñoz Salinas. All rights reserved.
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
- #include "aruco.h"
+#include "aruco.h"
 #include "cvdrawingutils.h"
 #include <fstream>
 #include <iostream>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <sstream>
-#include <string>
 #include <stdexcept>
+#include <string>
 
-#if  CV_MAJOR_VERSION >= 4
+#if CV_MAJOR_VERSION >= 4
 #define CV_CAP_PROP_FRAME_COUNT cv::CAP_PROP_FRAME_COUNT
 #define CV_CAP_PROP_POS_FRAMES cv::CAP_PROP_POS_FRAMES
 #endif
@@ -35,30 +35,72 @@ using namespace aruco;
 MarkerDetector MDetector;
 VideoCapture TheVideoCapturer;
 vector<Marker> TheMarkers;
-Mat TheInputImage,TheInputImageGrey, TheInputImageCopy;
+Mat TheInputImage, TheInputImageGrey, TheInputImageCopy;
 CameraParameters TheCameraParameters;
-void cvTackBarEvents(int pos, void*);
+void cvTackBarEvents(int pos, void *);
 string dictionaryString;
-int iDetectMode=0,iMinMarkerSize=0,iCorrectionRate=0,iShowAllCandidates=0,iEnclosed=0,iThreshold,iCornerMode,iDictionaryIndex,iTrack=0;
+int iDetectMode = 0, iMinMarkerSize = 0, iCorrectionRate = 0, iShowAllCandidates = 0, iEnclosed = 0, iThreshold, iCornerMode, iDictionaryIndex, iTrack = 0;
 
 int waitTime = 0;
-bool showMennu=false,bPrintHelp=false,isVideo=false;
-class CmdLineParser{int argc;char** argv;public:CmdLineParser(int _argc, char** _argv): argc(_argc), argv(_argv){}   bool operator[](string param)    {int idx = -1;  for (int i = 0; i < argc && idx == -1; i++)if (string(argv[i]) == param)idx = i;return (idx != -1);}    string operator()(string param, string defvalue = "-1")    {int idx = -1;for (int i = 0; i < argc && idx == -1; i++)if (string(argv[i]) == param)idx = i;if (idx == -1)return defvalue;else return (argv[idx + 1]);}};
-struct   TimerAvrg{std::vector<double> times;size_t curr=0,n; std::chrono::high_resolution_clock::time_point begin,end;   TimerAvrg(int _n=30){n=_n;times.reserve(n);   }inline void start(){begin= std::chrono::high_resolution_clock::now();    }inline void stop(){end= std::chrono::high_resolution_clock::now();double duration=double(std::chrono::duration_cast<std::chrono::microseconds>(end-begin).count())*1e-6;if ( times.size()<n) times.push_back(duration);else{ times[curr]=duration; curr++;if (curr>=times.size()) curr=0;}}double getAvrg(){double sum=0;for(auto t:times) sum+=t;return sum/double(times.size());}};
+bool showMennu = false, bPrintHelp = false, isVideo = false;
+class CmdLineParser {
+    int argc;
+    char **argv;
+
+public:
+    CmdLineParser(int _argc, char **_argv) : argc(_argc), argv(_argv) {}
+    bool operator[](string param) {
+        int idx = -1;
+        for (int i = 0; i < argc && idx == -1; i++)
+            if (string(argv[i]) == param) idx = i;
+        return (idx != -1);
+    }
+    string operator()(string param, string defvalue = "-1") {
+        int idx = -1;
+        for (int i = 0; i < argc && idx == -1; i++)
+            if (string(argv[i]) == param) idx = i;
+        if (idx == -1) return defvalue;
+        else
+            return (argv[idx + 1]);
+    }
+};
+
+struct TimerAvrg {
+    std::vector<double> times;
+    size_t curr = 0, n;
+    std::chrono::high_resolution_clock::time_point begin, end;
+    TimerAvrg(int _n = 30) {
+        n = _n;
+        times.reserve(n);
+    }
+    inline void start() { begin = std::chrono::high_resolution_clock::now(); }
+    inline void stop() {
+        end = std::chrono::high_resolution_clock::now();
+        double duration = double(std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count()) * 1e-6;
+        if (times.size() < n) times.push_back(duration);
+        else {
+            times[curr] = duration;
+            curr++;
+            if (curr >= times.size()) curr = 0;
+        }
+    }
+    double getAvrg() {
+        double sum = 0;
+        for (auto t : times) sum += t;
+        return sum / double(times.size());
+    }
+};
 
 TimerAvrg Fps;
 
-cv::Mat resize(const cv::Mat& in, cv::Size s){
-if(s.width==-1 || s.height==-1)return in;
-cv::Mat im2;
-cv::resize(in, im2, s);
-return im2;
+cv::Mat resize(const cv::Mat &in, cv::Size s) {
+    if (s.width == -1 || s.height == -1) return in;
+    cv::Mat im2;
+    cv::resize(in, im2, s);
+    return im2;
 }
 
-
-
-cv::Mat resize(const cv::Mat& in, int width)
-{
+cv::Mat resize(const cv::Mat &in, int width) {
     if (in.size().width <= width)
         return in;
     float yf = float(width) / float(in.size().width);
@@ -66,32 +108,34 @@ cv::Mat resize(const cv::Mat& in, int width)
     cv::resize(in, im2, cv::Size(width, static_cast<int>(in.size().height * yf)));
     return im2;
 }
-cv::Mat resizeImage(cv::Mat &in,float resizeFactor){
-    if (fabs(1-resizeFactor)<1e-3 )return in;
-    float nc=float(in.cols)*resizeFactor;
-    float nr=float(in.rows)*resizeFactor;
+
+cv::Mat resizeImage(cv::Mat &in, float resizeFactor) {
+    if (fabs(1 - resizeFactor) < 1e-3) return in;
+    float nc = float(in.cols) * resizeFactor;
+    float nr = float(in.rows) * resizeFactor;
     cv::Mat imres;
-    cv::resize(in,imres,cv::Size(nc,nr));
-    cout<<"Imagesize="<<imres.size()<<endl;
+    cv::resize(in, imres, cv::Size(nc, nr));
+    cout << "Imagesize=" << imres.size() << endl;
     return imres;
 }
+
 /************************************
  *
  *
  *
  *
  ************************************/
-void setParamsFromGlobalVariables(aruco::MarkerDetector &md){
+void setParamsFromGlobalVariables(aruco::MarkerDetector &md) {
 
 
-    md.setDetectionMode((DetectionMode)iDetectMode,float(iMinMarkerSize)/1000.);
-    md.getParameters().setCornerRefinementMethod( (aruco::CornerRefinementMethod) iCornerMode);
+    md.setDetectionMode((DetectionMode) iDetectMode, float(iMinMarkerSize) / 1000.);
+    md.getParameters().setCornerRefinementMethod((aruco::CornerRefinementMethod) iCornerMode);
 
     md.getParameters().detectEnclosedMarkers(iEnclosed);
-    md.getParameters().ThresHold=iThreshold;
-    md.getParameters().trackingMinDetections=(iTrack?3:0);
-    if ( aruco::Dictionary::getTypeFromString( md.getParameters().dictionary)!=Dictionary::CUSTOM)
-            md.setDictionary((aruco::Dictionary::DICT_TYPES) iDictionaryIndex,float(iCorrectionRate)/10. );  // sets the dictionary to be employed (ARUCO,APRILTAGS,ARTOOLKIT,etc)
+    md.getParameters().ThresHold = iThreshold;
+    md.getParameters().trackingMinDetections = (iTrack ? 3 : 0);
+    if (aruco::Dictionary::getTypeFromString(md.getParameters().dictionary) != Dictionary::CUSTOM)
+        md.setDictionary((aruco::Dictionary::DICT_TYPES) iDictionaryIndex, float(iCorrectionRate) / 10.);// sets the dictionary to be employed (ARUCO,APRILTAGS,ARTOOLKIT,etc)
 }
 
 /************************************
@@ -100,28 +144,26 @@ void setParamsFromGlobalVariables(aruco::MarkerDetector &md){
  *
  *
  ************************************/
-cv::Size parseSize(const string &strsize  ){
-    if(strsize.size()==0)return cv::Size(-1,-1);
+cv::Size parseSize(const string &strsize) {
+    if (strsize.size() == 0) return cv::Size(-1, -1);
     cv::Size s;
-    string ssaux=strsize;
-    for(auto &c:ssaux){
-        if(c==':'){
-            c=' ';
+    string ssaux = strsize;
+    for (auto &c : ssaux) {
+        if (c == ':') {
+            c = ' ';
         }
     }
-    stringstream sstr;sstr<<ssaux;
-    if( sstr>>s.width>>s.height)
+    stringstream sstr;
+    sstr << ssaux;
+    if (sstr >> s.width >> s.height)
         return s;
-    return cv::Size(-1,-1);
-
+    return cv::Size(-1, -1);
 }
-int main(int argc, char** argv)
-{
-    try
-    {
+
+int main(int argc, char **argv) {
+    try {
         CmdLineParser cml(argc, argv);
-        if (argc < 2 || cml["-h"])
-        {
+        if (argc < 2 || cml["-h"]) {
             cerr << "Invalid number of arguments" << endl;
             cerr << "Usage: (in.avi|live[:camera_index(e.g 0 or 1)]|net[-http://admin:admin@192.168.3.76:8081/video]) [-c camera_params.yml] [-s  marker_size_in_meters] [-d "
                     "dictionary:ALL_DICTS by default] [-h] [-ws w:h] [-skip frames]"
@@ -145,48 +187,42 @@ int main(int argc, char** argv)
 
         float TheMarkerSize = std::stof(cml("-s", "-1"));
         //resize factor
-        float resizeFactor=stof(cml("-rf","1"));
+        float resizeFactor = stof(cml("-rf", "1"));
 
-        iMinMarkerSize=stof(cml("-mms","0.0"));
+        iMinMarkerSize = stof(cml("-mms", "0.0"));
 
 
         ///////////  OPEN VIDEO
         // read from camera or from  file
-        if (TheInputVideo.find("live") != string::npos)
-        {
+        if (TheInputVideo.find("live") != string::npos) {
             int vIdx = 0;
             // check if the :idx is here
             char cad[100];
-            if (TheInputVideo.find(":") != string::npos)
-            {
+            if (TheInputVideo.find(":") != string::npos) {
                 std::replace(TheInputVideo.begin(), TheInputVideo.end(), ':', ' ');
                 sscanf(TheInputVideo.c_str(), "%s %d", cad, &vIdx);
             }
             cout << "Opening camera index " << vIdx << endl;
             TheVideoCapturer.open(vIdx);
             waitTime = 10;
-            isVideo=true;
-        }
-        else if(TheInputVideo.find("net") != string::npos){
+            isVideo = true;
+        } else if (TheInputVideo.find("net") != string::npos) {
             // check if the :idx is here
             char url[100];
             char cad[100];
-            if (TheInputVideo.find("-") != string::npos)
-            {
+            if (TheInputVideo.find("-") != string::npos) {
                 std::replace(TheInputVideo.begin(), TheInputVideo.end(), '-', ' ');
                 sscanf(TheInputVideo.c_str(), "%s %s", cad, url);
             }
             cout << "Opening camera url " << url << endl;
             TheVideoCapturer.open(url);
             waitTime = 10;
-            isVideo=true;
-        }
-        else{
+            isVideo = true;
+        } else {
             TheVideoCapturer.open(TheInputVideo);
-            if ( TheVideoCapturer.get(CV_CAP_PROP_FRAME_COUNT)>=2) isVideo=true;
-            if(cml["-skip"])
-                TheVideoCapturer.set(CV_CAP_PROP_POS_FRAMES,stoi(cml("-skip")));
-
+            if (TheVideoCapturer.get(CV_CAP_PROP_FRAME_COUNT) >= 2) isVideo = true;
+            if (cml["-skip"])
+                TheVideoCapturer.set(CV_CAP_PROP_POS_FRAMES, stoi(cml("-skip")));
         }
         // check video is open
         if (!TheVideoCapturer.isOpened())
@@ -197,11 +233,11 @@ int main(int argc, char** argv)
         TheVideoCapturer >> TheInputImage;
         if (TheCameraParameters.isValid())
             TheCameraParameters.resize(TheInputImage.size());
-        dictionaryString=cml("-d", "ALL_DICTS");
-        iDictionaryIndex=(uint64_t)aruco::Dictionary::getTypeFromString(dictionaryString);
-         MDetector.setDictionary(dictionaryString,float(iCorrectionRate)/10. );  // sets the dictionary to be employed (ARUCO,APRILTAGS,ARTOOLKIT,etc)
-         iThreshold=MDetector.getParameters().ThresHold;
-         iCornerMode= MDetector.getParameters().cornerRefinementM;
+        dictionaryString = cml("-d", "ALL_DICTS");
+        iDictionaryIndex = (uint64_t) aruco::Dictionary::getTypeFromString(dictionaryString);
+        MDetector.setDictionary(dictionaryString, float(iCorrectionRate) / 10.);// sets the dictionary to be employed (ARUCO,APRILTAGS,ARTOOLKIT,etc)
+        iThreshold = MDetector.getParameters().ThresHold;
+        iCornerMode = MDetector.getParameters().cornerRefinementM;
 
 
         setParamsFromGlobalVariables(MDetector);
@@ -209,45 +245,41 @@ int main(int argc, char** argv)
 
         // go!
 
-        do
-        {
+        do {
 
             TheVideoCapturer.retrieve(TheInputImage);
-             std::cout<<"Frame:"<<TheVideoCapturer.get(CV_CAP_PROP_POS_FRAMES)<<std::endl;
-            TheInputImage=resizeImage(TheInputImage,resizeFactor);
+            std::cout << "Frame:" << TheVideoCapturer.get(CV_CAP_PROP_POS_FRAMES) << std::endl;
+            TheInputImage = resizeImage(TheInputImage, resizeFactor);
             // copy image
             Fps.start();
             TheMarkers = MDetector.detect(TheInputImage, TheCameraParameters, TheMarkerSize);
             Fps.stop();
             // chekc the speed by calculating the mean speed of all iterations
-            cout << "\rTime detection=" << Fps.getAvrg()*1000 << " milliseconds nmarkers=" << TheMarkers.size() <<" images resolution="<<TheInputImage.size() <<std::endl;
+            cout << "\rTime detection=" << Fps.getAvrg() * 1000 << " milliseconds nmarkers=" << TheMarkers.size() << " images resolution=" << TheInputImage.size() << std::endl;
 
-            for (unsigned int i = 0; i < TheMarkers.size(); i++)
-            {
+            for (unsigned int i = 0; i < TheMarkers.size(); i++) {
                 // cout << TheMarkers[i] << endl;
                 double position[3];
                 double orientation[4];
                 TheMarkers[i].OgreGetPoseParameters(position, orientation);
 
-                cout << "id = " << TheMarkers[i].id << ": " ;
+                cout << "id = " << TheMarkers[i].id << ": ";
                 cout << "pos = (" << position[0] << ", " << position[1] << ", " << position[2] << "); ";
                 cout << "orient = (" << orientation[0] << ", " << orientation[1] << ", " << orientation[2] << ", " << orientation[3] << "); " << endl;
-                TheMarkers[i].draw(TheInputImageCopy, Scalar(0, 0, 255),2,true);
+                TheMarkers[i].draw(TheInputImageCopy, Scalar(0, 0, 255), 2, true);
             }
 
             // draw a 3d cube in each marker if there is 3d info
             if (TheCameraParameters.isValid() && TheMarkerSize > 0)
-                for (unsigned int i = 0; i < TheMarkers.size(); i++)
-                {
+                for (unsigned int i = 0; i < TheMarkers.size(); i++) {
                     CvDrawingUtils::draw3dCube(TheInputImageCopy, TheMarkers[i], TheCameraParameters);
                     CvDrawingUtils::draw3dAxis(TheInputImageCopy, TheMarkers[i], TheCameraParameters);
                 }
 
             if (isVideo)
-                if ( TheVideoCapturer.grab()==false) break;
+                if (TheVideoCapturer.grab() == false) break;
         } while (true);
-    }
-    catch (std::exception& ex)
+    } catch (std::exception &ex)
 
     {
         cout << "Exception :" << ex.what() << endl;
