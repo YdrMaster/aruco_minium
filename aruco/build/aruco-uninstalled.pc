@@ -1,6 +1,6 @@
 
-libdir=/home/zjf/workspace/aruco/aruco_demo/aruco/build
-includedir=/home/zjf/workspace/aruco/aruco_demo/aruco/src
+libdir=/home/mechdancer/repos/aruco_demo/aruco/build
+includedir=/home/mechdancer/repos/aruco_demo/aruco/src
 
 Name: aruco
 Description: ArUco: a minimal library for Augmented Reality applications based on OpenCv, uninstalled Version.

@@ -1,4 +1,4 @@
-# Install script for directory: /home/zjf/workspace/aruco/aruco_demo/aruco/src
+# Install script for directory: /home/mechdancer/repos/aruco_demo/aruco/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,8 +50,8 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xmainx" OR NOT CMAKE_INSTALL_COMPONE
     endif()
   endforeach()
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE FILES
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/build/src/libaruco.so.3.1.15"
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/build/src/libaruco.so.3.1"
+    "/home/mechdancer/repos/aruco_demo/aruco/build/src/libaruco.so.3.1.15"
+    "/home/mechdancer/repos/aruco_demo/aruco/build/src/libaruco.so.3.1"
     )
   foreach(file
       "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libaruco.so.3.1.15"
@@ -59,12 +59,8 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xmainx" OR NOT CMAKE_INSTALL_COMPONE
       )
     if(EXISTS "${file}" AND
        NOT IS_SYMLINK "${file}")
-      file(RPATH_CHANGE
-           FILE "${file}"
-           OLD_RPATH "/usr/local/lib:"
-           NEW_RPATH "")
       if(CMAKE_INSTALL_DO_STRIP)
-        execute_process(COMMAND "/bin/strip" "${file}")
+        execute_process(COMMAND "/usr/bin/strip" "${file}")
       endif()
     endif()
   endforeach()
@@ -77,58 +73,54 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xmainx" OR NOT CMAKE_INSTALL_COMPONE
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libaruco.so"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE FILES "/home/zjf/workspace/aruco/aruco_demo/aruco/build/src/libaruco.so")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE FILES "/home/mechdancer/repos/aruco_demo/aruco/build/src/libaruco.so")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libaruco.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libaruco.so")
-    file(RPATH_CHANGE
-         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libaruco.so"
-         OLD_RPATH "/usr/local/lib:"
-         NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libaruco.so")
+      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libaruco.so")
     endif()
   endif()
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/aruco" TYPE FILE FILES
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/src/aruco_cvversioning.h"
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/src/cameraparameters.h"
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/src/dictionary_based.h"
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/src/ippe.h"
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/src/markerdetector_impl.h"
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/src/markermap.h"
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/src/timers.h"
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/src/aruco_export.h"
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/src/cvdrawingutils.h"
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/src/dictionary.h"
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/src/levmarq.h"
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/src/marker.h"
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/src/picoflann.h"
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/src/aruco.h"
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/src/debug.h"
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/src/markerdetector.h"
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/src/markerlabeler.h"
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/src/posetracker.h"
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/src/fractaldetector.h"
+    "/home/mechdancer/repos/aruco_demo/aruco/src/aruco_cvversioning.h"
+    "/home/mechdancer/repos/aruco_demo/aruco/src/cameraparameters.h"
+    "/home/mechdancer/repos/aruco_demo/aruco/src/dictionary_based.h"
+    "/home/mechdancer/repos/aruco_demo/aruco/src/ippe.h"
+    "/home/mechdancer/repos/aruco_demo/aruco/src/markerdetector_impl.h"
+    "/home/mechdancer/repos/aruco_demo/aruco/src/markermap.h"
+    "/home/mechdancer/repos/aruco_demo/aruco/src/timers.h"
+    "/home/mechdancer/repos/aruco_demo/aruco/src/aruco_export.h"
+    "/home/mechdancer/repos/aruco_demo/aruco/src/cvdrawingutils.h"
+    "/home/mechdancer/repos/aruco_demo/aruco/src/dictionary.h"
+    "/home/mechdancer/repos/aruco_demo/aruco/src/levmarq.h"
+    "/home/mechdancer/repos/aruco_demo/aruco/src/marker.h"
+    "/home/mechdancer/repos/aruco_demo/aruco/src/picoflann.h"
+    "/home/mechdancer/repos/aruco_demo/aruco/src/aruco.h"
+    "/home/mechdancer/repos/aruco_demo/aruco/src/debug.h"
+    "/home/mechdancer/repos/aruco_demo/aruco/src/markerdetector.h"
+    "/home/mechdancer/repos/aruco_demo/aruco/src/markerlabeler.h"
+    "/home/mechdancer/repos/aruco_demo/aruco/src/posetracker.h"
+    "/home/mechdancer/repos/aruco_demo/aruco/src/fractaldetector.h"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/aruco/fractallabelers" TYPE FILE FILES
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/src/fractallabelers/fractalposetracker.h"
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/src/fractallabelers/fractalmarkerset.h"
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/src/fractallabelers/fractalmarker.h"
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/src/fractallabelers/fractallabeler.h"
+    "/home/mechdancer/repos/aruco_demo/aruco/src/fractallabelers/fractalposetracker.h"
+    "/home/mechdancer/repos/aruco_demo/aruco/src/fractallabelers/fractalmarkerset.h"
+    "/home/mechdancer/repos/aruco_demo/aruco/src/fractallabelers/fractalmarker.h"
+    "/home/mechdancer/repos/aruco_demo/aruco/src/fractallabelers/fractallabeler.h"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/aruco/dcf" TYPE FILE FILES
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/src/dcf/dcfmarkermaptracker.h"
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/src/dcf/dcfmarkertracker.h"
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/src/dcf/dcf_utils.h"
-    "/home/zjf/workspace/aruco/aruco_demo/aruco/src/dcf/trackerimpl.h"
+    "/home/mechdancer/repos/aruco_demo/aruco/src/dcf/dcfmarkermaptracker.h"
+    "/home/mechdancer/repos/aruco_demo/aruco/src/dcf/dcfmarkertracker.h"
+    "/home/mechdancer/repos/aruco_demo/aruco/src/dcf/dcf_utils.h"
+    "/home/mechdancer/repos/aruco_demo/aruco/src/dcf/trackerimpl.h"
     )
 endif()
 

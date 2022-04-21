@@ -2,11 +2,11 @@
 # File that provides "make uninstall" target
 #  We use the file 'install_manifest.txt'
 # -----------------------------------------------
-IF(NOT EXISTS "/home/zjf/workspace/aruco/aruco_demo/aruco/build/install_manifest.txt")
-  MESSAGE(FATAL_ERROR "Cannot find install manifest: \"/home/zjf/workspace/aruco/aruco_demo/aruco/build/install_manifest.txt\"")
-ENDIF(NOT EXISTS "/home/zjf/workspace/aruco/aruco_demo/aruco/build/install_manifest.txt")
+IF(NOT EXISTS "/home/mechdancer/repos/aruco_demo/aruco/build/install_manifest.txt")
+  MESSAGE(FATAL_ERROR "Cannot find install manifest: \"/home/mechdancer/repos/aruco_demo/aruco/build/install_manifest.txt\"")
+ENDIF(NOT EXISTS "/home/mechdancer/repos/aruco_demo/aruco/build/install_manifest.txt")
 
-FILE(READ "/home/zjf/workspace/aruco/aruco_demo/aruco/build/install_manifest.txt" files)
+FILE(READ "/home/mechdancer/repos/aruco_demo/aruco/build/install_manifest.txt" files)
 STRING(REGEX REPLACE "\n" ";" files "${files}")
 FOREACH(file ${files})
   MESSAGE(STATUS "Uninstalling \"$ENV{DESTDIR}${file}\"")

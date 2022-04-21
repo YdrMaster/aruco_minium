@@ -1,4 +1,4 @@
-# Install script for directory: /home/zjf/workspace/aruco/aruco_demo/aruco/utils_dcf
+# Install script for directory: /home/mechdancer/repos/aruco_demo/aruco/utils_dcf
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,15 +44,15 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/aruco_dcf"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/home/zjf/workspace/aruco/aruco_demo/aruco/build/utils_dcf/aruco_dcf")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/home/mechdancer/repos/aruco_demo/aruco/build/utils_dcf/aruco_dcf")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/aruco_dcf" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/aruco_dcf")
     file(RPATH_CHANGE
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/aruco_dcf"
-         OLD_RPATH "/home/zjf/workspace/aruco/aruco_demo/aruco/build/src:/usr/local/lib:"
+         OLD_RPATH "/home/mechdancer/repos/aruco_demo/aruco/build/src:"
          NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/aruco_dcf")
+      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/aruco_dcf")
     endif()
   endif()
 endif()
@@ -64,15 +64,15 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/aruco_dcf_mm"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/home/zjf/workspace/aruco/aruco_demo/aruco/build/utils_dcf/aruco_dcf_mm")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/home/mechdancer/repos/aruco_demo/aruco/build/utils_dcf/aruco_dcf_mm")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/aruco_dcf_mm" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/aruco_dcf_mm")
     file(RPATH_CHANGE
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/aruco_dcf_mm"
-         OLD_RPATH "/home/zjf/workspace/aruco/aruco_demo/aruco/build/src:/usr/local/lib:"
+         OLD_RPATH "/home/mechdancer/repos/aruco_demo/aruco/build/src:"
          NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/aruco_dcf_mm")
+      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/aruco_dcf_mm")
     endif()
   endif()
 endif()
