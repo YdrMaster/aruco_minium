@@ -1,0 +1,265 @@
+[
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DARUCO_DSO_EXPORTS -Isrc -I../src -I../3rdparty/eigen3 -I../src/. -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES -fPIC   -std=gnu++11 -o src/CMakeFiles/aruco.dir/cameraparameters.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/src/cameraparameters.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/src/cameraparameters.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DARUCO_DSO_EXPORTS -Isrc -I../src -I../3rdparty/eigen3 -I../src/. -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES -fPIC   -std=gnu++11 -o src/CMakeFiles/aruco.dir/debug.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/src/debug.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/src/debug.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DARUCO_DSO_EXPORTS -Isrc -I../src -I../3rdparty/eigen3 -I../src/. -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES -fPIC   -std=gnu++11 -o src/CMakeFiles/aruco.dir/dictionary.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/src/dictionary.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/src/dictionary.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DARUCO_DSO_EXPORTS -Isrc -I../src -I../3rdparty/eigen3 -I../src/. -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES -fPIC   -std=gnu++11 -o src/CMakeFiles/aruco.dir/ippe.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/src/ippe.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/src/ippe.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DARUCO_DSO_EXPORTS -Isrc -I../src -I../3rdparty/eigen3 -I../src/. -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES -fPIC   -std=gnu++11 -o src/CMakeFiles/aruco.dir/markerdetector.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/src/markerdetector.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/src/markerdetector.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DARUCO_DSO_EXPORTS -Isrc -I../src -I../3rdparty/eigen3 -I../src/. -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES -fPIC   -std=gnu++11 -o src/CMakeFiles/aruco.dir/markerlabeler.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/src/markerlabeler.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/src/markerlabeler.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DARUCO_DSO_EXPORTS -Isrc -I../src -I../3rdparty/eigen3 -I../src/. -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES -fPIC   -std=gnu++11 -o src/CMakeFiles/aruco.dir/posetracker.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/src/posetracker.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/src/posetracker.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DARUCO_DSO_EXPORTS -Isrc -I../src -I../3rdparty/eigen3 -I../src/. -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES -fPIC   -std=gnu++11 -o src/CMakeFiles/aruco.dir/cvdrawingutils.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/src/cvdrawingutils.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/src/cvdrawingutils.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DARUCO_DSO_EXPORTS -Isrc -I../src -I../3rdparty/eigen3 -I../src/. -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES -fPIC   -std=gnu++11 -o src/CMakeFiles/aruco.dir/dictionary_based.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/src/dictionary_based.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/src/dictionary_based.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DARUCO_DSO_EXPORTS -Isrc -I../src -I../3rdparty/eigen3 -I../src/. -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES -fPIC   -std=gnu++11 -o src/CMakeFiles/aruco.dir/marker.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/src/marker.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/src/marker.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DARUCO_DSO_EXPORTS -Isrc -I../src -I../3rdparty/eigen3 -I../src/. -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES -fPIC   -std=gnu++11 -o src/CMakeFiles/aruco.dir/markerdetector_impl.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/src/markerdetector_impl.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/src/markerdetector_impl.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DARUCO_DSO_EXPORTS -Isrc -I../src -I../3rdparty/eigen3 -I../src/. -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES -fPIC   -std=gnu++11 -o src/CMakeFiles/aruco.dir/markermap.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/src/markermap.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/src/markermap.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DARUCO_DSO_EXPORTS -Isrc -I../src -I../3rdparty/eigen3 -I../src/. -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES -fPIC   -std=gnu++11 -o src/CMakeFiles/aruco.dir/fractaldetector.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/src/fractaldetector.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/src/fractaldetector.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DARUCO_DSO_EXPORTS -Isrc -I../src -I../3rdparty/eigen3 -I../src/. -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES -fPIC   -std=gnu++11 -o src/CMakeFiles/aruco.dir/fractallabelers/fractalposetracker.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/src/fractallabelers/fractalposetracker.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/src/fractallabelers/fractalposetracker.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DARUCO_DSO_EXPORTS -Isrc -I../src -I../3rdparty/eigen3 -I../src/. -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES -fPIC   -std=gnu++11 -o src/CMakeFiles/aruco.dir/fractallabelers/fractalmarkerset.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/src/fractallabelers/fractalmarkerset.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/src/fractallabelers/fractalmarkerset.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DARUCO_DSO_EXPORTS -Isrc -I../src -I../3rdparty/eigen3 -I../src/. -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES -fPIC   -std=gnu++11 -o src/CMakeFiles/aruco.dir/fractallabelers/fractalmarker.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/src/fractallabelers/fractalmarker.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/src/fractallabelers/fractalmarker.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DARUCO_DSO_EXPORTS -Isrc -I../src -I../3rdparty/eigen3 -I../src/. -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES -fPIC   -std=gnu++11 -o src/CMakeFiles/aruco.dir/fractallabelers/fractallabeler.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/src/fractallabelers/fractallabeler.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/src/fractallabelers/fractallabeler.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DARUCO_DSO_EXPORTS -Isrc -I../src -I../3rdparty/eigen3 -I../src/. -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES -fPIC   -std=gnu++11 -o src/CMakeFiles/aruco.dir/dcf/dcfmarkermaptracker.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/src/dcf/dcfmarkermaptracker.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/src/dcf/dcfmarkermaptracker.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DARUCO_DSO_EXPORTS -Isrc -I../src -I../3rdparty/eigen3 -I../src/. -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES -fPIC   -std=gnu++11 -o src/CMakeFiles/aruco.dir/dcf/dcfmarkertracker.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/src/dcf/dcfmarkertracker.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/src/dcf/dcfmarkertracker.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DARUCO_DSO_EXPORTS -Isrc -I../src -I../3rdparty/eigen3 -I../src/. -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES -fPIC   -std=gnu++11 -o src/CMakeFiles/aruco.dir/dcf/dcf_utils.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/src/dcf/dcf_utils.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/src/dcf/dcf_utils.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DARUCO_DSO_EXPORTS -Isrc -I../src -I../3rdparty/eigen3 -I../src/. -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES -fPIC   -std=gnu++11 -o src/CMakeFiles/aruco.dir/dcf/trackerimpl.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/src/dcf/trackerimpl.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/src/dcf/trackerimpl.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9   -Iutils -I../utils -I../3rdparty/eigen3 -I../src -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES   -std=gnu++11 -o utils/CMakeFiles/aruco_batch_processing.dir/aruco_batch_processing.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/utils/aruco_batch_processing.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/utils/aruco_batch_processing.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9   -Iutils -I../utils -I../3rdparty/eigen3 -I../src -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES   -std=gnu++11 -o utils/CMakeFiles/aruco_tracker.dir/aruco_tracker.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/utils/aruco_tracker.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/utils/aruco_tracker.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9   -Iutils -I../utils -I../3rdparty/eigen3 -I../src -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES   -std=gnu++11 -o utils/CMakeFiles/aruco_test_no_gui.dir/aruco_test_no_gui.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/utils/aruco_test_no_gui.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/utils/aruco_test_no_gui.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9   -Iutils -I../utils -I../3rdparty/eigen3 -I../src -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES   -std=gnu++11 -o utils/CMakeFiles/aruco_test.dir/aruco_test.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/utils/aruco_test.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/utils/aruco_test.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9   -Iutils -I../utils -I../3rdparty/eigen3 -I../src -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES   -std=gnu++11 -o utils/CMakeFiles/aruco_simple.dir/aruco_simple.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/utils/aruco_simple.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/utils/aruco_simple.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9   -Iutils -I../utils -I../3rdparty/eigen3 -I../src -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES   -std=gnu++11 -o utils/CMakeFiles/aruco_print_marker.dir/aruco_print_marker.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/utils/aruco_print_marker.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/utils/aruco_print_marker.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9   -Iutils -I../utils -I../3rdparty/eigen3 -I../src -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES   -std=gnu++11 -o utils/CMakeFiles/aruco_print_dictionary.dir/aruco_print_dictionary.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/utils/aruco_print_dictionary.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/utils/aruco_print_dictionary.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9   -Iutils_markermap -I../utils_markermap -I../3rdparty/eigen3 -I../src -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES   -std=gnu++11 -o utils_markermap/CMakeFiles/aruco_markermap_setcentralmarker.dir/aruco_markermap_setcentralmarker.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/utils_markermap/aruco_markermap_setcentralmarker.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/utils_markermap/aruco_markermap_setcentralmarker.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9   -Iutils_markermap -I../utils_markermap -I../3rdparty/eigen3 -I../src -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES   -std=gnu++11 -o utils_markermap/CMakeFiles/aruco_show_markermap.dir/aruco_show_markermap.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/utils_markermap/aruco_show_markermap.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/utils_markermap/aruco_show_markermap.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9   -Iutils_markermap -I../utils_markermap -I../3rdparty/eigen3 -I../src -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES   -std=gnu++11 -o utils_markermap/CMakeFiles/aruco_markermap_pix2meters.dir/aruco_markermap_pix2meters.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/utils_markermap/aruco_markermap_pix2meters.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/utils_markermap/aruco_markermap_pix2meters.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9   -Iutils_markermap -I../utils_markermap -I../3rdparty/eigen3 -I../src -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES   -std=gnu++11 -o utils_markermap/CMakeFiles/aruco_test_markermap.dir/aruco_test_markermap.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/utils_markermap/aruco_test_markermap.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/utils_markermap/aruco_test_markermap.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9   -Iutils_markermap -I../utils_markermap -I../3rdparty/eigen3 -I../src -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES   -std=gnu++11 -o utils_markermap/CMakeFiles/aruco_test_markermap.dir/pcdwriter.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/utils_markermap/pcdwriter.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/utils_markermap/pcdwriter.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9   -Iutils_markermap -I../utils_markermap -I../3rdparty/eigen3 -I../src -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES   -std=gnu++11 -o utils_markermap/CMakeFiles/aruco_simple_markermap.dir/aruco_simple_markermap.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/utils_markermap/aruco_simple_markermap.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/utils_markermap/aruco_simple_markermap.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9   -Iutils_markermap -I../utils_markermap -I../3rdparty/eigen3 -I../src -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES   -std=gnu++11 -o utils_markermap/CMakeFiles/aruco_create_markermap.dir/aruco_create_markermap.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/utils_markermap/aruco_create_markermap.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/utils_markermap/aruco_create_markermap.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9   -Iutils_calibration -I../utils_calibration -I../3rdparty/eigen3 -I../src -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES   -std=gnu++11 -o utils_calibration/CMakeFiles/aruco_calibration_fromimages.dir/aruco_calibration_fromimages.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/utils_calibration/aruco_calibration_fromimages.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/utils_calibration/aruco_calibration_fromimages.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9   -Iutils_calibration -I../utils_calibration -I../3rdparty/eigen3 -I../src -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES   -std=gnu++11 -o utils_calibration/CMakeFiles/aruco_calibration.dir/aruco_calibration.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/utils_calibration/aruco_calibration.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/utils_calibration/aruco_calibration.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9   -Iutils_calibration -I../utils_calibration -I../3rdparty/eigen3 -I../src -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES   -std=gnu++11 -o utils_calibration/CMakeFiles/aruco_calibration.dir/calibrator.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/utils_calibration/calibrator.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/utils_calibration/calibrator.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9   -Iutils_dcf -I../utils_dcf -I../3rdparty/eigen3 -I../src -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES   -std=gnu++11 -o utils_dcf/CMakeFiles/aruco_dcf_mm.dir/aruco_dcf_markermap.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/utils_dcf/aruco_dcf_markermap.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/utils_dcf/aruco_dcf_markermap.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9   -Iutils_dcf -I../utils_dcf -I../3rdparty/eigen3 -I../src -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES   -std=gnu++11 -o utils_dcf/CMakeFiles/aruco_dcf.dir/aruco_dcf.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/utils_dcf/aruco_dcf.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/utils_dcf/aruco_dcf.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9   -Iutils_fractal -I../utils_fractal -I../3rdparty/eigen3 -I../src -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES   -std=gnu++11 -o utils_fractal/CMakeFiles/fractal_pix2meters.dir/fractal_pix2meters.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/utils_fractal/fractal_pix2meters.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/utils_fractal/fractal_pix2meters.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9   -Iutils_fractal -I../utils_fractal -I../3rdparty/eigen3 -I../src -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES   -std=gnu++11 -o utils_fractal/CMakeFiles/fractal_print_marker.dir/fractal_print_marker.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/utils_fractal/fractal_print_marker.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/utils_fractal/fractal_print_marker.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9   -Iutils_fractal -I../utils_fractal -I../3rdparty/eigen3 -I../src -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES   -std=gnu++11 -o utils_fractal/CMakeFiles/fractal_tracker.dir/fractal_tracker.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/utils_fractal/fractal_tracker.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/utils_fractal/fractal_tracker.cpp"
+},
+
+{
+  "directory": "/home/zjf/workspace/aruco/aruco_demo/aruco/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9   -Iutils_fractal -I../utils_fractal -I../3rdparty/eigen3 -I../src -isystem /usr/local/include/opencv4     -O0 -g3  -DDEBUG -D_DEBUG -DPRINT_DEBUG_MESSAGES   -std=gnu++11 -o utils_fractal/CMakeFiles/fractal_create.dir/fractal_create.cpp.o -c /home/zjf/workspace/aruco/aruco_demo/aruco/utils_fractal/fractal_create.cpp",
+  "file": "/home/zjf/workspace/aruco/aruco_demo/aruco/utils_fractal/fractal_create.cpp"
+}
+]
