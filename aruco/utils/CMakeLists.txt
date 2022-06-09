@@ -27,4 +27,4 @@ target_link_libraries(aruco_test_no_gui_stream  aruco opencv_calib3d opencv_high
 #target_link_libraries(aruco_dummy             aruco opencv_calib3d opencv_highgui ${THREADLIB})
 
 #aruco_create_board
-INSTALL(TARGETS aruco_batch_processing aruco_tracker aruco_simple aruco_test aruco_test_no_gui aruco_print_marker aruco_print_dictionary aruco_test_no_gui_stream      RUNTIME DESTINATION bin)
+INSTALL(TARGETS aruco_batch_processing aruco_tracker aruco_simple aruco_test aruco_test_no_gui aruco_print_marker aruco_print_dictionary aruco_test_no_gui_stream    RUNTIME DESTINATION bin)

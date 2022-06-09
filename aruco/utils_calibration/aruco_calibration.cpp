@@ -74,7 +74,7 @@ int main(int argc, char** argv)
         }
          // read from camera or from  file
         string TheInputVideo=string(argv[1]);
-        if ( TheInputVideo.find( "live")!=std::string::npos)
+        if ( TheInputVideo.find( "live!!!")!=std::string::npos)
         {
             int vIdx = 0;
             // check if the :idx is here

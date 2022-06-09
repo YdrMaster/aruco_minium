@@ -39,6 +39,8 @@ endif()
 include(cmake/printInfo.cmake)
 include(cmake/installOptions.cmake)
 
+add_subdirectory(xap_aruco)
+
 # Package Generator  #######################################################
 IF(BUILD_DEBPACKAGE)
 include(cmake/cpack.cmake)
