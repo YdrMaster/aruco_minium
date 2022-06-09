@@ -27,7 +27,22 @@ make -j
 ```
 生成riscv64的musl二进制程序于`aruco/build/utils/aruco_test`
 
+### 基于alpine docker编译aruco
+
+```
+docker pull riscv64/apline:edge
+docker create -it --name alpine alpine:edge
+docker start -ai alpine
+apk update
+apk install opencv-dev build-base cmake
+cd aruco_minium/aruco
+mkdir build && cd build
+cmake -DCMAKE_INSTALL_PREFIX=$PWD/install  ../
+make
+```
+
+
+
 ---
-fsdafsdsadda
 For full info about the library please go to 
 https://www.uco.es/investiga/grupos/ava/node/26
