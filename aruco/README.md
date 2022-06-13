@@ -1,35 +1,24 @@
-### 交叉编译 OpenCV Cross compilation for riscv64 with musl libc
-#### Install cross compilation tools:
-```
-wget https://musl.cc/riscv64-linux-musl-cross.tgz
-tar xvf riscv64-linux-musl-cross.tgz
-export PATH=/path/to/riscv64-linux-musl-cross/bin:$PATH
-```
-#### Getting OpenCV Source Code
-```
-git clone https://github.com/elliott10/opencv.git
-```
-#### Building OpenCV
-```
-mkdir -p opencv/build && cd opencv/build
-cmake -DCMAKE_TOOLCHAIN_FILE=../platforms/linux/riscv64-musl-gcc.toolchain.cmake -DCMAKE_INSTALL_PREFIX=$PWD/install  ../
-make -j8
-make install
-```
-The binaries will be placed in this directory: `opencv/build/bin/`
+# 交叉编译 OpenCV Cross compilation for riscv64 with musl libc
 
-### 交叉编译 aruco
-```
-mkdir build; cd  build ;
-OpenCV_DIR=/path/to/opencv/build/ cmake -DOpenCV_DIR=/path/to/opencv/build/ \
--DCMAKE_TOOLCHAIN_FILE=../riscv64-musl.cmake -DCMAKE_INSTALL_PREFIX=$PWD/install  ../
-make -j
-```
-生成riscv64的musl二进制程序于`aruco/build/utils/aruco_test`
+## 基于 zCore
 
-### 基于alpine docker编译aruco
+1. 在 zCore 目录编译并放置依赖库
 
-```
+   1. 编译 ffmpeg `cargo ffmpeg --arch riscv64`
+   2. 编译 opencv `cargo opencv --arch riscv64`
+
+2. 修改路径
+
+   1. 修改 [Makefile](Makefile):1 `ZCORE := <zCore 目录>`
+   2. 修改 [cmake](riscv64-musl.cmake):13 `/path/to/zCore` 改为 zCore 目录，找 ffmpeg，注意这个必须使用绝对路径
+
+3. 编译 `make`
+
+   生成 riscv64 的 musl 二进制程序于 [`build/utils`](build/utils/)。
+
+## 基于 alpine docker 编译 aruco
+
+```bash
 docker pull riscv64/apline:edge
 docker create -it --name alpine alpine:edge
 docker start -ai alpine
@@ -41,8 +30,6 @@ cmake -DCMAKE_INSTALL_PREFIX=$PWD/install  ../
 make
 ```
 
-
-
 ---
-For full info about the library please go to 
-https://www.uco.es/investiga/grupos/ava/node/26
+For full info about the library please go to
+<https://www.uco.es/investiga/grupos/ava/node/26>
