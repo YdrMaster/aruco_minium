@@ -16,6 +16,11 @@
 
    生成 riscv64 的 musl 二进制程序于 [`build/utils`](build/utils/)。
 
+4. 拷贝到 zCore `make install`
+
+   - 应用程序拷贝到 `zCore/rootfs/riscv64/bin`；
+   - 相机参数拷贝到 `zCore/rootfs/riscv64/aruco_res`；
+
 ## 基于 alpine docker 编译 aruco
 
 ```bash
