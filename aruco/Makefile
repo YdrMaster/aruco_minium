@@ -20,6 +20,8 @@ clean:
 .PHONY : install
 install: build
 	cp build/utils/aruco_test_no_gui_stream $(ZCORE)/rootfs/riscv64/bin
+	cp -d build/src/libaruco.so* $(ZCORE)/rootfs/riscv64/lib
+	riscv64-linux-musl-strip -s $(ZCORE)/rootfs/riscv64/lib/libaruco.so
 
 	mkdir -p $(ZCORE)/rootfs/riscv64/aruco_res
 	rm -f $(ZCORE)/rootfs/riscv64/aruco_res/*.yml
