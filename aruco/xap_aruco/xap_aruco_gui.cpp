@@ -318,6 +318,8 @@ int main(int argc, char** argv)
             /* no parity, one stop bit */
             uart_config.c_cflag &= ~(CSTOPB | PARENB);
 
+            uart_config.c_lflag  &= ~(ICANON | ECHO | ECHOE | ISIG);
+
             unsigned speed = B921600;
 
             /* set baud rate */
@@ -496,6 +498,7 @@ int main(int argc, char** argv)
             int cmd_id = -1;
             for (int i = 0; i < dataNum; ++i)
             {
+                // cout << "Serial Port Received" << dataNum << " Bytes! From port fd " << serial_fd <<endl;
                 cmd_id = xapExternalProtocolParseChar(&xap_external_protocol_decoder, buff_in[i]);
                 switch (cmd_id >> 8)
                 {
@@ -504,6 +507,7 @@ int main(int argc, char** argv)
                     switch (cmd_id & 0x00FF)
                     {
                     case XAP_EXTERNAL_COMMON_TIME_SYNC:
+                        // cout << "Received one time sync packet!" << endl;
                         clock_gettime(CLOCK_MONOTONIC, &sync_timestamp);
 
                         xapTimeSyncState.rec_timestamp = sync_timestamp.tv_sec * 1000 + sync_timestamp.tv_sec / 1e6;
