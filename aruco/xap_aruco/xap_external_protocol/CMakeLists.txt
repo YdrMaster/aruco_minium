@@ -1,0 +1,1 @@
+add_library(XapExternalProtocol xap_external_protocol.h xap_external_protocol_decode.h xap_external_protocol_decode.cpp)

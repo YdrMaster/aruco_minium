@@ -24,6 +24,7 @@ Copyright 2020 Rafael Muñoz Salinas. All rights reserved.
 #include <string>
 #include <stdexcept>
 #include <xap_external_protocol.h>
+#include <xap_external_protocol_decode.h>
 #include <unistd.h>
 #include <termios.h>
 #include <stdlib.h>
@@ -244,7 +245,26 @@ bool sendMessage(int serial_fd, const uint8_t msgClass, const uint8_t msgID, con
     return true;
 }
 
+typedef struct {
+    uint32_t org_timestamp;
+    uint32_t rec_timestamp;
+    uint32_t xmt_timestamp;
 
+    uint32_t event_count;
+
+    float theta_least;
+    float theta_most;
+    float theta_mean;
+    float theta_M2;
+    float theta_rms;
+
+    float delta_least;
+    float delta_most;
+    float delta_mean;
+    float delta_M2;
+    float delta_rms;
+
+} xapTimeSyncState_t;
 
 int main(int argc, char** argv)
 {
@@ -281,7 +301,7 @@ int main(int argc, char** argv)
             serial_fd = open(serial_name, O_RDWR | O_NOCTTY | O_NONBLOCK);
 
             if (serial_fd < 0) {
-                cout << "pen failed （" << errno << ")" << endl;
+                cout << "open failed （" << errno << ")" << endl;
                 return -1;
             }
 
@@ -316,6 +336,11 @@ int main(int argc, char** argv)
                 return -1;
             }
         }
+
+        /* 串口通讯 */
+        xap_external_protocol_decoder_t xap_external_protocol_decoder;  // 协议解析器
+        uint8_t buff_in[512];       // 串口接收数据缓冲区
+        uint8_t buff_out[512];      // 串口发送数据缓冲区
 
         float TheMarkerSize = std::stof(cml("-s", "-1"));
         //resize factor
@@ -407,6 +432,12 @@ int main(int argc, char** argv)
         // go!
         char key = 0;
         int index = 0,indexSave=0;
+        struct timespec sync_timestamp = {0,0};
+
+        xapTimeSyncState_t xapTimeSyncState = {0};
+
+        /* 串口协议解析器初始化 */
+        xapExternalProtocolDecodeInit(&xap_external_protocol_decoder);
         // capture until press ESC or until the end of the video
 
         do
@@ -458,6 +489,80 @@ int main(int argc, char** argv)
 
                         sendMessage(serial_fd, XAP_EXTERNAL_CLASS_MCP_NAV, XAP_EXTERNAL_MCP_NAV_ARUCO, (const uint8_t*)&xap_external_mcp_nav_aruco, sizeof(xap_external_mcp_nav_aruco));
                     }
+                }
+            }
+
+            int dataNum = read(serial_fd, buff_in, sizeof(buff_in));
+            int cmd_id = -1;
+            for (int i = 0; i < dataNum; ++i)
+            {
+                cmd_id = xapExternalProtocolParseChar(&xap_external_protocol_decoder, buff_in[i]);
+                switch (cmd_id >> 8)
+                {
+                case XAP_EXTERNAL_CLASS_COMMON_TIME:
+
+                    switch (cmd_id & 0x00FF)
+                    {
+                    case XAP_EXTERNAL_COMMON_TIME_SYNC:
+                        clock_gettime(CLOCK_MONOTONIC, &sync_timestamp);
+
+                        xapTimeSyncState.rec_timestamp = sync_timestamp.tv_sec * 1000 + sync_timestamp.tv_sec / 1e6;
+                        xapTimeSyncState.org_timestamp =
+                            xap_external_protocol_decoder.rx_buffer.xap_external_common_time_sync.xmt_timestamp;
+
+                        /* 设置时间同步帧消息 */
+                        xap_external_common_time_sync_t xap_external_common_time_sync;
+
+                        xap_external_common_time_sync.org_timestamp = xapTimeSyncState.org_timestamp;
+                        xap_external_common_time_sync.rec_timestamp = xapTimeSyncState.rec_timestamp;
+                        xap_external_common_time_sync.xmt_timestamp = sync_timestamp.tv_sec * 1000 + sync_timestamp.tv_sec / 1e6;
+
+                        /* 记录时间同步帧发送时刻 */
+                        xapTimeSyncState.xmt_timestamp = xap_external_common_time_sync.xmt_timestamp;
+
+                        sendMessage(serial_fd, XAP_EXTERNAL_CLASS_COMMON_TIME, XAP_EXTERNAL_COMMON_TIME_SYNC, (const uint8_t*)&xap_external_common_time_sync, sizeof(xap_external_common_time_sync));
+
+                        if (xapTimeSyncState.xmt_timestamp ==
+                                xap_external_protocol_decoder.rx_buffer.xap_external_common_time_sync.org_timestamp) {
+                            if (xap_external_protocol_decoder.rx_buffer.xap_external_common_time_sync.rec_timestamp != 0
+                                    & xap_external_protocol_decoder.rx_buffer.xap_external_common_time_sync.xmt_timestamp != 0) {
+                            }
+
+                            int32_t T1 = xapTimeSyncState.xmt_timestamp;
+                            int32_t T2 = xap_external_protocol_decoder.rx_buffer.xap_external_common_time_sync.rec_timestamp;
+                            int32_t T3 = xapTimeSyncState.org_timestamp;
+                            int32_t T4 = xapTimeSyncState.rec_timestamp;
+
+                            float theta = ((T2 - T1) + (T3 - T4)) / 2 / 1e3f;
+                            float delta = ((T4 - T1) - (T3 - T2)) / 2 / 1e3f;
+
+                            xapTimeSyncState.event_count ++;
+
+                            float d_theta = theta - xapTimeSyncState.theta_mean;
+                            xapTimeSyncState.theta_mean += d_theta / xapTimeSyncState.event_count;
+                            xapTimeSyncState.theta_M2 += d_theta * (theta - xapTimeSyncState.theta_mean);
+                            xapTimeSyncState.theta_least = min(d_theta, xapTimeSyncState.theta_least);
+                            xapTimeSyncState.theta_most = max(d_theta, xapTimeSyncState.theta_most);
+                            xapTimeSyncState.theta_rms = sqrtf(xapTimeSyncState.theta_M2 / (xapTimeSyncState.event_count -
+                                                               1));
+
+                            float d_delta = delta - xapTimeSyncState.delta_mean;
+                            xapTimeSyncState.delta_mean += d_delta / xapTimeSyncState.event_count;
+                            xapTimeSyncState.delta_M2 += d_delta * (delta - xapTimeSyncState.delta_mean);
+                            xapTimeSyncState.delta_least = min(d_delta, xapTimeSyncState.delta_least);
+                            xapTimeSyncState.delta_most = max(d_delta, xapTimeSyncState.delta_most);
+                            xapTimeSyncState.delta_rms = sqrtf(xapTimeSyncState.delta_M2 / (xapTimeSyncState.event_count -
+                                                               1));
+                        }
+                        break;
+
+                    default:
+                        break;
+                    }
+                    break;
+
+                default:
+                    break;
                 }
             }
 

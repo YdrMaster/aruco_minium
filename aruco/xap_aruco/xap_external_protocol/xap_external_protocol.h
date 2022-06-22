@@ -452,7 +452,7 @@ typedef struct {
 
 /* XAP_EXTERNAL_COMMON_TIME_SYNC (F0 | 01) */
 typedef struct {
-	uint32_t ort_timestamp;                      /* 发起源时间戳 ms */
+	uint32_t org_timestamp;                      /* 发起源时间戳 ms */
 	uint32_t rec_timestamp;                      /* 接收时间戳 ms */
 	uint32_t xmt_timestamp;                      /* 发送时间戳 ms */
 
