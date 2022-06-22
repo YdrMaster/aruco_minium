@@ -23,6 +23,8 @@
 
 #define XAP_EXTERNAL_CLASS_SENS_CAMERA  0x20            /* 传感器 相机消息类 发送:相机 */
 
+#define XAP_EXTERNAL_CLASS_COMMON_TIME  0xF0            /* 通用 时间消息类 */
+
 /* IDs */
 /* HIL SBG消息ID */
 #define XAP_EXTERNAL_HIL_SBG_IMU_DATA             	03  /*	Includes IMU status, acc., gyro, temp delta speeds and delta angles values */
@@ -38,12 +40,20 @@
 #define XAP_EXTERNAL_HIL_SBG_AIR_DATA 				36  /*	Air data output */
 
 /* HIL PX4消息ID */
-#define XAP_EXTERNAL_HIL_PX4_GRYO                 01  /* PX4 gyro */
+#define XAP_EXTERNAL_HIL_PX4_GYRO                 01  /* PX4 gyro */
 #define XAP_EXTERNAL_HIL_PX4_ACCEL                02  /* PX4 accel */
 #define XAP_EXTERNAL_HIL_PX4_MAG                  03  /* PX4 mag */
 #define XAP_EXTERNAL_HIL_PX4_BARO                 04  /* PX4 baro */
 #define XAP_EXTERNAL_HIL_PX4_GPS                  05  /* PX4 gps */
 #define XAP_EXTERNAL_HIL_PX4_AIRSPEED             06  /* PX4 airspeed */
+
+/* HIL XAP消息ID */
+#define XAP_EXTERNAL_HIL_XAP_GYRO                 01  /* XAP gyro */
+#define XAP_EXTERNAL_HIL_XAP_ACCEL                02  /* XAP accel */
+#define XAP_EXTERNAL_HIL_XAP_MAG                  03  /* XAP mag */
+#define XAP_EXTERNAL_HIL_XAP_BARO                 04  /* XAP baro */
+#define XAP_EXTERNAL_HIL_XAP_GPS                  05  /* XAP gps */
+#define XAP_EXTERNAL_HIL_XAP_AIRSPEED             06  /* XAP airspeed */
 
 /* FC STATUS消息ID */
 #define XAP_EXTERNAL_FC_STATUS_ATT               01  /* Autopilot attitude */
@@ -59,6 +69,9 @@
 #define XAP_EXTERNAL_SENS_CAMERA_INFO            01  /* Carmer's information */
 #define XAP_EXTERNAL_SENS_CAMERA_ROI             02  /* Carmer region of interest information */
 #define XAP_EXTERNAL_SENS_CAMERA_TARGET_INFO     03  /* Carmer recognize target information */
+
+/* COMMON TIME消息ID */
+#define XAP_EXTERNAL_COMMON_TIME_SYNC            01  /* Time sync message */
 
 #pragma pack(push, 1)
 
@@ -271,7 +284,7 @@ typedef struct {
 } xap_external_hil_px4_airspeed_t;
 
 /* HIL XAP消息 */
-/* XAP_EXTERNAL_HIL_XAP_GYRO (05 | 01) */
+/* XAP_EXTERNAL_HIL_XAP_GYRO (05 | 01) Length = 20 TransferTime = 0.315ms(B921600-8N1 Include header and tailer) */
 typedef struct {
 	uint32_t device_id;   /* Unique device ID for the sensor */
 	float x;              /* Filtered angular velocity in x axis, rad / s */
@@ -280,7 +293,7 @@ typedef struct {
 	float temperature;  /* Temperature in degrees celsius C */
 } xap_external_hil_xap_gyro_t;
 
-/* XAP_EXTERNAL_HIL_XAP_ACCEL (05 | 02) */
+/* XAP_EXTERNAL_HIL_XAP_ACCEL (05 | 02) Length = 20 TransferTime = 0.315ms(B921600-8N1 Include header and tailer) */
 typedef struct {
 	uint32_t device_id;   /*unique device ID for the sensor */
 	float x;              /* Filtered acceleration in x axis, m/s/s */
@@ -289,7 +302,7 @@ typedef struct {
 	float temperature;  /* Temperature in degrees celsius C */
 } xap_external_hil_xap_accel_t;
 
-/* XAP_EXTERNAL_HIL_XAP_MAG (05 | 03) */
+/* XAP_EXTERNAL_HIL_XAP_MAG (05 | 03) Length = 20 TransferTime = 0.315ms(B921600-8N1 Include header and tailer) */
 typedef struct {
 	uint32_t device_id; /* unique device ID for the sensor */
 	float x;            /* magnetic field in x axis	Gauss */
@@ -298,14 +311,14 @@ typedef struct {
 	float temperature;  /* Temperature in degrees celsius C */
 } xap_external_hil_xap_mag_t;
 
-/* XAP_EXTERNAL_HIL_XAP_BARO (05 | 04) */
+/* XAP_EXTERNAL_HIL_XAP_BARO (05 | 04) Length = 12 TransferTime = 0.228ms(B921600-8N1 Include header and tailer) */
 typedef struct {
 	uint32_t device_id; /* unique device ID for the sensor */
 	float pressure;     /* measurement in millibar millibar */
 	float temperature;  /* Temperature in degrees celsius C */
 } xap_external_hil_xap_baro_t;
 
-/* XAP_EXTERNAL_HIL_XAP_GPS (05 | 05) */
+/* XAP_EXTERNAL_HIL_XAP_GPS (05 | 05) Length = 59 TransferTime = 0.738ms(B921600-8N1 Include header and tailer) */
 typedef struct {
 	uint32_t device_id;       /* unique device ID for the sensor */
 	int32_t lat;              /* Latitude in 1E-7 degrees 1E-7deg */
@@ -367,7 +380,7 @@ typedef struct {
 	float aux_pwm8;
 } xap_external_fc_cmd_apwm_t;
 
-/* FC CMD消息 */
+/* MCP NAV消息 */
 /* XAP_EXTERNAL_MCP_NAV_ARUCO (11 | 01) */
 typedef struct {
 	uint8_t markerID;       /* 二维码ID */
@@ -402,7 +415,7 @@ typedef struct {
 	 * is captured (ROI not used), and True if a subwindow is captured (ROI
 	 * used).
 	*/
-	bool do_rectify;
+	uint8_t do_rectify;
 } xap_external_sens_camera_roi_t;
 
 /* 相机图像畸变模型 */
@@ -434,10 +447,69 @@ typedef struct {
 	uint32_t height;                        /* 目标像素高 */
 	uint32_t width;                         /* 目标像素宽 */
 
-	bool do_rectify;                        /* 位置信息基于原始图像尺寸 */
+	uint8_t do_rectify;                        /* 位置信息基于原始图像尺寸 */
 } xap_external_sens_camera_target_info_t;
 
+/* XAP_EXTERNAL_COMMON_TIME_SYNC (F0 | 01) */
+typedef struct {
+	uint32_t ort_timestamp;                      /* 发起源时间戳 ms */
+	uint32_t rec_timestamp;                      /* 接收时间戳 ms */
+	uint32_t xmt_timestamp;                      /* 发送时间戳 ms */
+
+} xap_external_common_time_sync_t;
+
 #pragma pack(pop)
+
+const static uint16_t X8408_INT_CRC = 0x0000;
+
+/*!< CRC table used to compute a 16 bit CRC with the polynom 0x8408. */
+const static uint16_t crc16LookupTable[256] = {
+	0x0000, 0x1189, 0x2312, 0x329B, 0x4624, 0x57AD, 0x6536, 0x74BF, 0x8C48, 0x9DC1, 0xAF5A, 0xBED3, 0xCA6C, 0xDBE5, 0xE97E, 0xF8F7,
+	0x1081, 0x0108, 0x3393, 0x221A, 0x56A5, 0x472C, 0x75B7, 0x643E, 0x9CC9, 0x8D40, 0xBFDB, 0xAE52, 0xDAED, 0xCB64, 0xF9FF, 0xE876,
+	0x2102, 0x308B, 0x0210, 0x1399, 0x6726, 0x76AF, 0x4434, 0x55BD, 0xAD4A, 0xBCC3, 0x8E58, 0x9FD1, 0xEB6E, 0xFAE7, 0xC87C, 0xD9F5,
+	0x3183, 0x200A, 0x1291, 0x0318, 0x77A7, 0x662E, 0x54B5, 0x453C, 0xBDCB, 0xAC42, 0x9ED9, 0x8F50, 0xFBEF, 0xEA66, 0xD8FD, 0xC974,
+	0x4204, 0x538D, 0x6116, 0x709F, 0x0420, 0x15A9, 0x2732, 0x36BB, 0xCE4C, 0xDFC5, 0xED5E, 0xFCD7, 0x8868, 0x99E1, 0xAB7A, 0xBAF3,
+	0x5285, 0x430C, 0x7197, 0x601E, 0x14A1, 0x0528, 0x37B3, 0x263A, 0xDECD, 0xCF44, 0xFDDF, 0xEC56, 0x98E9, 0x8960, 0xBBFB, 0xAA72,
+	0x6306, 0x728F, 0x4014, 0x519D, 0x2522, 0x34AB, 0x0630, 0x17B9, 0xEF4E, 0xFEC7, 0xCC5C, 0xDDD5, 0xA96A, 0xB8E3, 0x8A78, 0x9BF1,
+	0x7387, 0x620E, 0x5095, 0x411C, 0x35A3, 0x242A, 0x16B1, 0x0738, 0xFFCF, 0xEE46, 0xDCDD, 0xCD54, 0xB9EB, 0xA862, 0x9AF9, 0x8B70,
+	0x8408, 0x9581, 0xA71A, 0xB693, 0xC22C, 0xD3A5, 0xE13E, 0xF0B7, 0x0840, 0x19C9, 0x2B52, 0x3ADB, 0x4E64, 0x5FED, 0x6D76, 0x7CFF,
+	0x9489, 0x8500, 0xB79B, 0xA612, 0xD2AD, 0xC324, 0xF1BF, 0xE036, 0x18C1, 0x0948, 0x3BD3, 0x2A5A, 0x5EE5, 0x4F6C, 0x7DF7, 0x6C7E,
+	0xA50A, 0xB483, 0x8618, 0x9791, 0xE32E, 0xF2A7, 0xC03C, 0xD1B5, 0x2942, 0x38CB, 0x0A50, 0x1BD9, 0x6F66, 0x7EEF, 0x4C74, 0x5DFD,
+	0xB58B, 0xA402, 0x9699, 0x8710, 0xF3AF, 0xE226, 0xD0BD, 0xC134, 0x39C3, 0x284A, 0x1AD1, 0x0B58, 0x7FE7, 0x6E6E, 0x5CF5, 0x4D7C,
+	0xC60C, 0xD785, 0xE51E, 0xF497, 0x8028, 0x91A1, 0xA33A, 0xB2B3, 0x4A44, 0x5BCD, 0x6956, 0x78DF, 0x0C60, 0x1DE9, 0x2F72, 0x3EFB,
+	0xD68D, 0xC704, 0xF59F, 0xE416, 0x90A9, 0x8120, 0xB3BB, 0xA232, 0x5AC5, 0x4B4C, 0x79D7, 0x685E, 0x1CE1, 0x0D68, 0x3FF3, 0x2E7A,
+	0xE70E, 0xF687, 0xC41C, 0xD595, 0xA12A, 0xB0A3, 0x8238, 0x93B1, 0x6B46, 0x7ACF, 0x4854, 0x59DD, 0x2D62, 0x3CEB, 0x0E70, 0x1FF9,
+	0xF78F, 0xE606, 0xD49D, 0xC514, 0xB1AB, 0xA022, 0x92B9, 0x8330, 0x7BC7, 0x6A4E, 0x58D5, 0x495C, 0x3DE3, 0x2C6A, 0x1EF1, 0x0F78
+};
+
+static inline uint16_t xap_external_crc_table_accumulate_byte(uint8_t b, uint16_t crc)
+{
+	uint8_t index = (uint8_t)((b ^ crc) & 0xFF);
+	return (uint16_t)(crc16LookupTable[index] ^ (crc >> 8));
+}
+
+static inline uint16_t xap_external_crc_table_accumulate_buffer(const uint8_t *buffer, uint16_t start, uint16_t length,
+		uint16_t crc)
+{
+	uint16_t crcTmp = crc;
+
+	for (int i = start; i < start + length; i++) {
+		crcTmp = xap_external_crc_table_accumulate_byte(buffer[i], crcTmp);
+	}
+
+	return crcTmp;
+}
+
+static inline uint16_t xap_external_crc_table_calculate(uint8_t *buffer, uint16_t start, uint16_t length)
+{
+	uint16_t crcTmp = X8408_INT_CRC;
+
+	for (int i = start; i < start + length; i++) {
+		crcTmp = xap_external_crc_table_accumulate_byte(buffer[i], crcTmp);
+	}
+
+	return crcTmp;
+}
 
 /*
 * Compute a CRC for a specified buffer.
@@ -445,7 +517,7 @@ typedef struct {
 * \param[in] bufferSize Buffer size in bytes.
 * \return The computed 16 bit CRC.
 */
-static inline uint16_t xap_external_calcCRC_buf(const void *pBuffer, uint16_t bufferSize)
+static inline uint16_t xap_external_crc_bit_calculate_buffer(const void *pBuffer, uint16_t bufferSize)
 {
 	const uint8_t *pBytesArray = (const uint8_t *)pBuffer;
 	uint16_t poly = 0x8408;
@@ -470,7 +542,8 @@ static inline uint16_t xap_external_calcCRC_buf(const void *pBuffer, uint16_t bu
 	return crc;
 }
 
-static inline void xap_external_calcCRC_buf_add(const void *pBuffer, uint16_t bufferSize, uint16_t *crc)
+static inline void xap_external_crc_bit_calculate_accumulate_buffer(const void *pBuffer, uint16_t bufferSize,
+		uint16_t *crc)
 {
 	const uint8_t *pBytesArray = (const uint8_t *)pBuffer;
 	uint16_t poly = 0x8408;
@@ -492,12 +565,7 @@ static inline void xap_external_calcCRC_buf_add(const void *pBuffer, uint16_t bu
 	}
 }
 
-static inline void xap_external_calcCRC_init(uint16_t *crc_value)
-{
-	*crc_value = 0;
-}
-
-static inline void xap_external_calcCRC_char(const uint8_t data, uint16_t *crc)
+static inline void xap_external_crc_bit_accumulate_byte(const uint8_t data, uint16_t *crc)
 {
 	uint16_t poly = 0x8408;
 	uint8_t carry;
@@ -512,6 +580,11 @@ static inline void xap_external_calcCRC_char(const uint8_t data, uint16_t *crc)
 			*crc = *crc ^ poly;
 		}
 	}
+}
+
+static inline void xap_external_crc_init(uint16_t *crc_value)
+{
+	*crc_value = X8408_INT_CRC;
 }
 
 #endif /* __XAP_EXTERNAL_PROTOCOL__ */
