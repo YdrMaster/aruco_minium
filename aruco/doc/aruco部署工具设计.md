@@ -45,8 +45,9 @@ size=0.03
 2. 增加本仓库中 `run-aruco.sh` 运行权限：`chmod +x run-aruco.sh`
 3. 生成新运行实例，若 `aruco` 未编译，会自动完成编译：`./run-aruco.sh install rtsp-0`
 4. 若未出现问题，则会自动生成 `rtsp-0` 文件夹，并在其中生成 `aruco.conf` 文件。修改其中内容，满足需求
-5. 进入到 `rtsp-0`文件夹，增加到系统自动运行服务：`./run-aruco.sh install`
-6. 重启树莓派或者手动运行：`./run-arco.sh start`
+5. 进入到 `rtsp-0`文件夹，运行相机校准命令，`./run-aruco.sh cal`，获取相机参数，或者将参数文件复制到`camera_configs`中。
+6. 增加到系统自动运行服务：`./run-aruco.sh install`
+7. 重启树莓派或者手动运行：`./run-arco.sh start`
 
 本脚本支持命令包括：
 - `run-aruco.sh init [app-name]` 初始化目录环境，提供编译后输出目录
